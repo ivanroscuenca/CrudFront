@@ -11,7 +11,7 @@ export class ProductService {
 
   //inyectamos las url del back 
 
-  productURL = environment.apiRestURL+"/product";
+  productURL = environment.apiRestURL+'/product';
 
   //inyectamos el cliente en el constructor
   constructor(private httpClient:HttpClient) { }
@@ -20,9 +20,16 @@ export class ProductService {
   public list(): Observable<Product[]>{
     return  this.httpClient.get<Product[]>(this.productURL);
   }
-  public detail(id:number): Observable<Product[]>{
-    return  this.httpClient.get<Product[]>(this.productURL);
+  public detail(id:number): Observable<Product>{
+    return  this.httpClient.get<Product>(this.productURL+`/${id}`);
   }
 
+  public create(product:Product): Observable<any>{
+    return this.httpClient.post<any>(this.productURL,product);
+  }
+
+  public update(id:number, product:Product): Observable<any>{
+    return this.httpClient.put<any>(this.productURL+`/${id}`,product);
+  }
 
 }
