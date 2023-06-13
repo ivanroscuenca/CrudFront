@@ -31,5 +31,21 @@ this.productService.list().subscribe(
 );
 }
 
+onDelete(id: number): void {
+  // Call the delete method in the ProductService
+  this.productService.delete(id).subscribe(
+    () => {
+      // Remove the deleted product from the products array
+      this.products = this.products.filter(product => product.id !== id);
+      
+      // Display a success notification or perform any other action
+      console.log(`Product with ID ${id} has been deleted successfully.`);
+    },
+    err => {
+      console.error('An error occurred while deleting the product:', err);
+    }
+  );
+}
+
 
 }
